@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import "./Dashboard.css";
 import { IoIosResize } from "react-icons/io";
 import { SiGoogleanalytics } from "react-icons/si";
-import { PiPackageFill, PiUserCircle, PiUserCircleLight } from "react-icons/pi";
+import { PiPackageFill, PiUserCircle } from "react-icons/pi";
 import { RiCoupon2Line } from "react-icons/ri";
 import { MdOutlineSupervisedUserCircle } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import line from "../../assets/Tab Container.png";
 import axios from "axios";
+import { TfiReload } from "react-icons/tfi";
 
 const Dashboard = () => {
   const [mode, setMode] = useState(true);
@@ -108,7 +109,7 @@ const Dashboard = () => {
               mode
                 ? "border-[#E1E1E1] bg-[#fff]"
                 : "border-[#5266e8] bg-[#11142D]"
-            } ${open ? "w-[112px]" : "w-[250px]"}`}
+            } ${open ? "w-[112px]" : "w-[200px]"}`}
           >
             <div
               onClick={() => setOpen(!open)}
@@ -287,7 +288,9 @@ const Dashboard = () => {
             >
               Food
             </h2>
-            <div className="flex items-center flex-wrap gap-[13px] mb-[32px]">
+            <div
+              className={`flex items-center flex-wrap  mb-[32px] ${open ? "gap-[13px]" : "gap-[10px]"}`}
+            >
               {filteredMeals.map((item) => (
                 <div
                   key={item.id}
@@ -346,6 +349,30 @@ const Dashboard = () => {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+          <div className="w-[400px] h-[979px] mt-[40px]">
+            <div
+              className={`w-full h-[370px] rounded-[8px] p-[34px_16px] ${mode ? "bg-[#FFFFFF]" : "bg-transparent border border-[#5266e8]"}`}
+            >
+              <div className="flex items-center justify-between">
+                <h3
+                  className={`mulish font-bold text-[16px] ${mode ? "text-[#11142D]" : "text-[#ffffff]"}`}
+                >
+                  Current Order
+                </h3>
+                <div className="flex items-center gap-[32px]">
+                  <a
+                    className="mulish font-bold text-[16px] text-[#F04461]"
+                    href="#"
+                  >
+                    Clear All
+                  </a>
+                  <TfiReload
+                    className={`${mode ? "text-[#9A9AB0]" : "text-[#fff]"}`}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
