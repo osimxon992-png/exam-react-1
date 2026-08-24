@@ -1,5 +1,5 @@
 import { CiBellOn, CiDark, CiLight, CiSearch } from "react-icons/ci";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Dashboard.css";
 import { IoIosResize } from "react-icons/io";
 import { SiGoogleanalytics } from "react-icons/si";
@@ -7,10 +7,28 @@ import { PiPackageFill, PiUserCircle, PiUserCircleLight } from "react-icons/pi";
 import { RiCoupon2Line } from "react-icons/ri";
 import { MdOutlineSupervisedUserCircle } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
+import line from "../../assets/Tab Container.png";
+import axios from "axios";
 
 const Dashboard = () => {
   const [mode, setMode] = useState(true);
   const [open, setOpen] = useState(true);
+  const [meal, setMeal] = useState([]);
+  const [pro, setPro] = useState([]);
+  const API = "https://dummyjson.com/recipes?limit=6";
+  const API_SECOND = "https://dummyjson.com/products?limit=3";
+
+  async function getMeal() {
+    await axios.get(API).then((res) => setMeal(res.data.recipes));
+  }
+  async function getPro() {
+    await axios.get(API_SECOND).then((res) => setPro(res.data.products));
+  }
+
+  useEffect(() => {
+    getMeal();
+    getPro();
+  }, []);
   return (
     <div className="container">
       <section
@@ -119,7 +137,7 @@ const Dashboard = () => {
                 placeholder="Search Here..."
               />
             </div>
-            <nav>
+            <nav className="mb-[16px]">
               <ul className="flex items-center gap-[122px] pl-[56px]">
                 <li>
                   <a
@@ -163,6 +181,62 @@ const Dashboard = () => {
                 </li>
               </ul>
             </nav>
+            <img src={line} className="mb-[40px]" alt="" />
+            <h2
+              className={`mulish font-bold text-[24px] mb-[24px] ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
+            >
+              Food
+            </h2>
+            <div className="flex items-center flex-wrap gap-[13px] mb-[32px]">
+              {meal.map((item) => (
+                <div
+                  key={item.id}
+                  className={`w-[256px] h-[252px] rounded-[8px] border ${mode ? "border-[#DBD7F4]" : "border-[#5266e8]"} p-[8px]`}
+                >
+                  <img
+                    className="w-[240px] h-[166px] rounded-[8px] mb-[16px]"
+                    src={item?.image}
+                    alt="img"
+                  />
+                  <h2
+                    className={`mulish font-bold ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
+                  >
+                    {item.name}
+                  </h2>
+                  <p className="mulish font-bold text-[16px] text-[#42BDA1]">
+                    $22
+                  </p>
+                </div>
+              ))}
+            </div>
+            <h2
+              className={`mulish font-bold text-[24px] mb-[24px] ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
+            >
+              Drinks
+            </h2>
+            <div className="flex items-center gap-[10px]">
+              {pro.map((item) => (
+                <div
+                  key={item.id}
+                  className={`w-[256px] h-[252px] rounded-[8px] border ${mode ? "border-[#DBD7F4]" : "border-[#5266e8]"} p-[8px]`}
+                >
+                  <img
+                    className="w-[240px] h-[166px] rounded-[8px] bg-[#E2E2EA] mb-[16px]"
+                    src={item.thumbnail}
+                    alt="image"
+                  />
+                  <h2
+                    className={`mulish font-bold ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
+                  >
+                    {item.title.split(" ").slice(0, 3).join(" ") +
+                      (item.title.split(" ").length > 3 ? "..." : "")}
+                  </h2>
+                  <p className="mulish font-bold text-[16px] text-[#42BDA1]">
+                    $22
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
