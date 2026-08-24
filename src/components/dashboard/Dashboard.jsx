@@ -106,8 +106,12 @@ const Dashboard = () => {
               <span className="text-[18px]">{open ? "" : "Settings"}</span>
             </div>
           </div>
-          <div className={`w-[832px] h-[1125px] rounded-[8px] bg-[#FFFFFF] mt-[40px] p-[24px_16px]`}>
-            <div className="flex items-center gap-[8px] w-full bg-[#F7F7FC] h-[40px] rounded-[8px] p-[8px_16px]">
+          <div
+            className={`w-[832px] h-[1125px] rounded-[8px] ${mode ? "bg-[#FFFFFF]" : "bg-[transparent] border border-[#5266e8]"} mt-[40px] p-[24px_16px]`}
+          >
+            <div
+              className={`flex items-center gap-[8px] w-full mb-[24px] ${mode ? "bg-[#F7F7FC]" : "bg-[#5266e8] text-[#fff]"} h-[40px] rounded-[8px] p-[8px_16px]`}
+            >
               <CiSearch />
               <input
                 className="outline-0"
@@ -115,6 +119,50 @@ const Dashboard = () => {
                 placeholder="Search Here..."
               />
             </div>
+            <nav>
+              <ul className="flex items-center gap-[122px] pl-[56px]">
+                <li>
+                  <a
+                    className={`mulish font-bold text-[16px] ${mode ? "text-[#92929D] hover:text-[#11142D]" : "text-[#fff]"}`}
+                    href="#"
+                  >
+                    All
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className={`mulish font-bold text-[16px] ${mode ? "text-[#92929D] hover:text-[#11142D]" : "text-[#fff]"}`}
+                    href="#"
+                  >
+                    Food
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className={`mulish font-bold text-[16px] ${mode ? "text-[#92929D] hover:text-[#11142D]" : "text-[#fff]"}`}
+                    href="#"
+                  >
+                    Drinks
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className={`mulish font-bold text-[16px] ${mode ? "text-[#92929D] hover:text-[#11142D]" : "text-[#fff]"}`}
+                    href="#"
+                  >
+                    Snack
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className={`mulish font-bold text-[16px] ${mode ? "text-[#92929D] hover:text-[#11142D]" : "text-[#fff]"}`}
+                    href="#"
+                  >
+                    Packages
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </section>
