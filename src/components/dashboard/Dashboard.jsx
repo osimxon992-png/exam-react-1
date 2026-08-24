@@ -212,7 +212,7 @@ const Dashboard = () => {
             <h2
               className={`mulish font-bold text-[24px] mb-[24px] ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
             >
-              Drinks
+              Products
             </h2>
             <div className="flex items-center gap-[10px]">
               {pro.map((item) => (
