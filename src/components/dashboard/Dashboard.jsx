@@ -1,7 +1,7 @@
 import { CiBellOn, CiDark, CiLight, CiSearch } from "react-icons/ci";
 import { useState, useEffect } from "react";
 import "./Dashboard.css";
-import { IoIosResize } from "react-icons/io";
+import { IoIosArrowDown, IoIosResize } from "react-icons/io";
 import { SiGoogleanalytics } from "react-icons/si";
 import { PiPackageFill, PiUserCircle } from "react-icons/pi";
 import { RiCoupon2Line } from "react-icons/ri";
@@ -10,14 +10,19 @@ import { IoSettingsOutline } from "react-icons/io5";
 import line from "../../assets/Tab Container.png";
 import axios from "axios";
 import { TfiReload } from "react-icons/tfi";
+import { FaMinus, FaPlus } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 const Dashboard = () => {
   const [mode, setMode] = useState(true);
   const [open, setOpen] = useState(true);
   const [meal, setMeal] = useState([]);
   const [pro, setPro] = useState([]);
+  const [third, setThird] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [counts, setCounts] = useState({});
   const API = "https://dummyjson.com/recipes?limit=6";
+  const API_THIRD = "https://dummyjson.com/recipes?limit=3";
   const API_SECOND = "https://dummyjson.com/products?limit=3";
 
   async function getMeal() {
@@ -26,11 +31,29 @@ const Dashboard = () => {
   async function getPro() {
     await axios.get(API_SECOND).then((res) => setPro(res.data.products));
   }
+  async function getThird() {
+    await axios.get(API_THIRD).then((res) => setThird(res.data.recipes));
+  }
 
   useEffect(() => {
     getMeal();
     getPro();
+    getThird();
   }, []);
+
+  const handleIncrement = (id) => {
+    setCounts((prev) => ({
+      ...prev,
+      [id]: (prev[id] || 1) + 1,
+    }));
+  };
+
+  const handleDecrement = (id) => {
+    setCounts((prev) => ({
+      ...prev,
+      [id]: Math.max(1, (prev[id] || 1) - 1),
+    }));
+  };
 
   const filteredMeals = meal.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -353,9 +376,11 @@ const Dashboard = () => {
           </div>
           <div className="w-[400px] h-[979px] mt-[40px]">
             <div
-              className={`w-full h-[370px] rounded-[8px] p-[34px_16px] ${mode ? "bg-[#FFFFFF]" : "bg-transparent border border-[#5266e8]"}`}
+              className={`w-full h-[370px] rounded-[8px] p-[34px_16px] mb-[16px] ${mode ? "bg-[#FFFFFF]" : "bg-transparent border border-[#5266e8]"}`}
             >
-              <div className="flex items-center justify-between">
+              <div
+                className={`flex items-center justify-between pb-[27px] mb-[12px] border-b ${mode ? "border-[#E1E1FB]" : "border-[#5266e8]"}`}
+              >
                 <h3
                   className={`mulish font-bold text-[16px] ${mode ? "text-[#11142D]" : "text-[#ffffff]"}`}
                 >
@@ -373,6 +398,151 @@ const Dashboard = () => {
                   />
                 </div>
               </div>
+              {third.map((item) => (
+                <div key={item.id} className="mb-[24px] flex">
+                  <img
+                    className="w-[64px] h-[64px] rounded-[8px] mr-[24px]"
+                    src={item?.image}
+                    alt="image"
+                  />
+                  <div className="w-[151px] mr-[32px]">
+                    <h3
+                      className={`mulish font-bold text-[16px] w-[151px] mb-[0px] ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
+                    >
+                      {item.name}
+                    </h3>
+                    <p
+                      className={`mulish font-bold text-[16px] text-[#42BDA1]`}
+                    >
+                      ${(counts[item.id] || 1) * 22}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-[16px]">
+                    <button
+                      onClick={() => handleDecrement(item.id)}
+                      className="w-[24px] h-[24px] rounded-[2px] bg-[#5541D7] flex items-center justify-center text-[#FFFFFF]"
+                    >
+                      <FaMinus />
+                    </button>
+                    <span
+                      className={`mulish font-semibold text-[14px] ${
+                        mode ? "text-[#333333]" : "text-[#fff]"
+                      }`}
+                    >
+                      {counts[item.id] || 1}
+                    </span>
+                    <button
+                      onClick={() => handleIncrement(item.id)}
+                      className="w-[24px] h-[24px] rounded-[2px] bg-[#5541D7] flex items-center justify-center text-[#FFFFFF]"
+                    >
+                      <FaPlus />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div
+              className={`w-[400px] h-[131px] rounded-[8px] p-[24px_16px] mb-[16px] ${mode ? "bg-[#FFFFFF]" : "bg-transparent border border-[#5266e8]"}`}
+            >
+              <h2
+                className={`mulish text-[16px] font-bold mb-[24px] ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
+              >
+                Select available promo to apply
+              </h2>
+              <button
+                className={`flex items-center justify-between w-[368px] h-[40px] p-[8px_24px] rounded-[8px] border-2 border-[#5541D7] ${mode ? "text-[#5541D7]" : "text-[#fff]"}`}
+              >
+                20% Off Entire Order <IoIosArrowDown />
+              </button>
+            </div>
+            <div
+              className={`w-[400px] h-[226px] rounded-[8px] p-[24px_16px_16px_16px] mb-[16px] ${mode ? "bg-[#FFFFFF]" : "bg-transparent border border-[#5266e8]"}`}
+            >
+              <div className="flex items-center justify-between mb-[16px]">
+                <h3
+                  className={`mulish font-bold text-[16px] ${mode ? "text-[#92929D]" : "text-[#fff]"}`}
+                >
+                  Sub Total
+                </h3>
+                <p
+                  className={`mulish font-bold text-[16px] ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
+                >
+                  $88
+                </p>
+              </div>
+              <div className="flex items-center justify-between mb-[16px]">
+                <h3
+                  className={`mulish font-bold text-[16px] ${mode ? "text-[#92929D]" : "text-[#fff]"}`}
+                >
+                  Tax Total
+                </h3>
+                <p
+                  className={`mulish font-bold text-[16px] ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
+                >
+                  $4
+                </p>
+              </div>
+              <div className="flex items-center justify-between mb-[24px]">
+                <h3
+                  className={`mulish font-bold text-[16px] ${mode ? "text-[#92929D]" : "text-[#fff]"}`}
+                >
+                  Discount
+                </h3>
+                <p
+                  className={`mulish font-bold text-[16px] ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
+                >
+                  - 20%
+                </p>
+              </div>
+              <div
+                className={`w-full h-[2px] mb-[24px] ${mode ? "bg-[#E1E1FB]" : "bg-[#5266e8]"}`}
+              ></div>
+              <div className="flex items-center justify-between mb-[24px]">
+                <h3
+                  className={`mulish font-bold text-[16px] ${mode ? "text-[#92929D]" : "text-[#fff]"}`}
+                >
+                  Total
+                </h3>
+                <p
+                  className={`mulish font-bold text-[16px] ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
+                >
+                  $32
+                </p>
+              </div>
+            </div>
+            <div
+              className={`w-[400px] h-[234px] rounded-[8px] p-[34px_16px_24px_16px] ${mode ? "bg-[#FFFFFF]" : "bg-transparent border border-[#5266e8]"}`}
+            >
+              <div className="flex items-center justify-between mb-[35px]">
+                <h3
+                  className={`mulish font-bold text-[16px] ${mode ? "text-[#11142D]" : "text-[#fff]"}`}
+                >
+                  Payment Mode
+                </h3>
+                <BsThreeDotsVertical
+                  className={`text-[23px] ${mode ? "text-[#9A9AB0]" : "text-[#fff]"}`}
+                />
+              </div>
+              <div className="flex items-center gap-[8px] mb-[24px]">
+                <div
+                  className={`w-[87px] h-[40px] rounded-[8px] text-[#5541D7] flex items-center justify-center ${mode ? "border-2 border-[#DBD7F4] hover:border-[#5541D7]" : "border-2 border-[#5266e8] hover:border-[#fff] text-[#fff]"}`}
+                >
+                  Cash
+                </div>
+                <div
+                  className={`w-[85px] h-[40px] rounded-[8px] text-[#5541D7] flex items-center justify-center ${mode ? "border-2 border-[#DBD7F4] hover:border-[#5541D7]" : "border-2 border-[#5266e8] hover:border-[#fff] text-[#fff]"}`}
+                >
+                  Card
+                </div>
+                <div
+                  className={`w-[115px] h-[40px] rounded-[8px] text-[#5541D7] flex items-center justify-center ${mode ? "border-2 border-[#DBD7F4] hover:border-[#5541D7]" : "border-2 border-[#5266e8] hover:border-[#fff] text-[#fff]"}`}
+                >
+                  E-Wallet
+                </div>
+              </div>
+              <button className="p-[14px_149px] bg-[#5541D7] rounded-[8px] text-[#FFFFFF] mulish font-bold text-[16px]">
+                Pay Now
+              </button>
             </div>
           </div>
         </div>
