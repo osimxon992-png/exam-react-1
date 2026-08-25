@@ -136,7 +136,7 @@ const Dashboard = () => {
           >
             <div
               onClick={() => setOpen(!open)}
-              className={`h-[56px] rounded-[8px] mb-[24px] hover:bg-[#5541D7]  ${
+              className={`h-[56px] rounded-[8px] mb-[24px] aktiv  ${
                 mode ? "hover:text-[#fff] text-[#9A9AB0]" : "text-[#E1E1E1]"
               }  ${
                 open
@@ -148,7 +148,7 @@ const Dashboard = () => {
               <span className="text-[18px]">{open ? "" : "Close"}</span>
             </div>
             <div
-              className={`h-[56px] rounded-[8px] mb-[24px] hover:bg-[#5541D7]  ${
+              className={`h-[56px] rounded-[8px] mb-[24px] aktiv aktiv ${
                 mode ? "hover:text-[#fff] text-[#9A9AB0]" : "text-[#E1E1E1]"
               }  ${
                 open
@@ -160,7 +160,7 @@ const Dashboard = () => {
               <span className="text-[18px]">{open ? "" : "Analytics"}</span>
             </div>
             <div
-              className={`h-[56px] rounded-[8px] mb-[24px] hover:bg-[#5541D7]  ${
+              className={`h-[56px] rounded-[8px] mb-[24px] aktiv  ${
                 mode ? "hover:text-[#fff] text-[#9A9AB0]" : "text-[#E1E1E1]"
               }  ${
                 open
@@ -172,7 +172,7 @@ const Dashboard = () => {
               <span className="text-[18px]">{open ? "" : "Users"}</span>
             </div>
             <div
-              className={`h-[56px] rounded-[8px] mb-[24px] hover:bg-[#5541D7]  ${
+              className={`h-[56px] rounded-[8px] mb-[24px] aktiv  ${
                 mode ? "hover:text-[#fff] text-[#9A9AB0]" : "text-[#E1E1E1]"
               }  ${
                 open
@@ -184,7 +184,7 @@ const Dashboard = () => {
               <span className="text-[18px]">{open ? "" : "Packages"}</span>
             </div>
             <div
-              className={`h-[56px] rounded-[8px] mb-[24px] hover:bg-[#5541D7]  ${
+              className={`h-[56px] rounded-[8px] mb-[24px] aktiv  ${
                 mode ? "hover:text-[#fff] text-[#9A9AB0]" : "text-[#E1E1E1]"
               }  ${
                 open
@@ -196,7 +196,7 @@ const Dashboard = () => {
               <span className="text-[18px]">{open ? "" : "Coupons"}</span>
             </div>
             <div
-              className={`h-[56px] rounded-[8px] mb-[561px] hover:bg-[#5541D7]  ${
+              className={`h-[56px] rounded-[8px] mb-[561px] aktiv  ${
                 mode ? "hover:text-[#fff] text-[#9A9AB0]" : "text-[#E1E1E1]"
               }  ${
                 open
@@ -208,8 +208,8 @@ const Dashboard = () => {
               <span className="text-[18px]">{open ? "" : "Profile"}</span>
             </div>
             <div
-              className={`h-[56px] rounded-[8px] mb-[561px] hover:bg-[#5541D7]  ${
-                mode ? "hover:text-[#fff] text-[#9A9AB0]" : "text-[#E1E1E1]"
+              className={`h-[56px] rounded-[8px] mb-[561px] aktiv  ${
+                mode ? "text-[#9A9AB0]" : "text-[#E1E1E1]"
               }  ${
                 open
                   ? "w-[56px] flex items-center justify-center"
@@ -540,7 +540,7 @@ const Dashboard = () => {
                   E-Wallet
                 </div>
               </div>
-              <button className="p-[14px_149px] bg-[#5541D7] rounded-[8px] text-[#FFFFFF] mulish font-bold text-[16px]">
+              <button className="p-[14px_149px] bg-[#5541D7] rounded-[8px] text-[#FFFFFF] mulish font-bold text-[15px]">
                 Pay Now
               </button>
             </div>

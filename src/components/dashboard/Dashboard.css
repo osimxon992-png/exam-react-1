@@ -9,3 +9,17 @@
 .mulish {
   font-family: "Mulish", sans-serif;
 }
+.aktiv {
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+  cursor: pointer;
+}
+
+.aktiv:active {
+  background-color: #5541d7 !important;
+  color: #ffffff !important;
+}
+.aktiv:hover {
+  color: #000;
+}
